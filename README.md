@@ -227,69 +227,64 @@ sns.boxplot(x = 'MonthlyIncome', y = 'JobRole', data = employee_df)
 
 employee_df.head(3)
 
+<p align="center">
+  <img src="Screenshot 2024-01-10 215017.png">
+</p>
+
 X_cat = employee_df[['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus']]
 X_cat
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 215035.png">
+</p>
 
 from sklearn.preprocessing import OneHotEncoder
 onehotencoder = OneHotEncoder()
 X_cat = onehotencoder.fit_transform(X_cat).toarray()
-[ ]
-  1
+
 X_cat.shape
-account_circle
+
 (1470, 26)
 
 X_cat = pd.DataFrame(X_cat)
-[ ]
-  1
 X_cat
 
-X_numerical = employee_df[['Age', 'DailyRate', 'DistanceFromHome',  'Education', 'EnvironmentSatisfaction', 'HourlyRate', 'JobInvolvement', 'JobLevel', 'JobSatisfaction',  'MonthlyIncome',    'MonthlyRate',  'NumCompaniesWorked',   'OverTime', 'PercentSalaryHike', 'PerformanceRating',   'RelationshipSatisfaction', 'StockOptionLevel', 'TotalWorkingYears' ,'TrainingTimesLastYear'    , 'WorkLifeBalance',    'YearsAtCompany'    ,'YearsInCurrentRole', 'YearsSinceLastPromotion',   'YearsWithCurrManager']]
-X_numerical
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 181255.png">
+</p>
 
-X_all = pd.concat([X_cat, X_numerical], axis = 1)
-X_all
-account_circle
-
+<p align="center">
+  <img src="Screenshot 2024-01-10 214819.png">
+</p>
 
 from sklearn.preprocessing import MinMaxScaler
+
 scaler = MinMaxScaler()
+
 #scaler.fit(X_all)
+
 X_all.columns = X_all.columns.astype(str)
+
 X = scaler.fit_transform(X_all)
 
-X
 
-array([[0.        , 0.        , 1.        , ..., 0.22222222, 0.        ,
-        0.29411765],
-       [0.        , 1.        , 0.        , ..., 0.38888889, 0.06666667,
-        0.41176471],
-       [0.        , 0.        , 1.        , ..., 0.        , 0.        ,
-        0.        ],
-       ...,
-       [0.        , 0.        , 1.        , ..., 0.11111111, 0.        ,
-        0.17647059],
-       [0.        , 1.        , 0.        , ..., 0.33333333, 0.        ,
-        0.47058824],
-       [0.        , 0.        , 1.        , ..., 0.16666667, 0.06666667,
-        0.11764706]])
+X
+<p align="center">
+  <img src="Screenshot 2024-01-10 181147.png">
+</p>
+
 
 y = employee_df['Attrition']
+
+
 y
 
-0       1
-1       0
-2       1
-3       0
-4       0
-       ..
-1465    0
-1466    0
-1467    0
-1468    0
-1469    0
-Name: Attrition, Length: 1470, dtype: int64
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 223907.png">
+</p>
+
+
 ## V) TRAIN AND EVALUATE A LOGISTIC REGRESSION CLASSIFIER
 
 from sklearn.model_selection import train_test_split
@@ -297,11 +292,11 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
 
 X_train.shape
-account_circle
+
 (1102, 50)
 
 X_test.shape
-account_circle
+
 (368, 50)
 
 from sklearn.linear_model import LogisticRegression
@@ -314,24 +309,11 @@ y_pred = model.predict(X_test)
 
 
 y_pred
-account_circle
-array([0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-       0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0])
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 181126.png">
+</p>
+
 
 from sklearn.metrics import confusion_matrix, classification_report
 
@@ -341,14 +323,12 @@ print("Accuracy {} %".format( 100 * accuracy_score(y_pred, y_test)))
 Accuracy 87.77173913043478 %
 Testing Set Performance
 
-[ ]
-  1
-  2
-  3
 cm = confusion_matrix(y_pred, y_test)
 sns.heatmap(cm, annot=True)
 
-
+<p align="center">
+  <img src="Screenshot 2024-01-10 181055.png">
+</p>
 
 print(classification_report(y_test, y_pred))
 
@@ -371,8 +351,12 @@ model.fit(X_train, y_train)
 
 
 y_pred = model.predict(X_test)
+
 Testing Set Performance
 
+<p align="center">
+  <img src="Screenshot 2024-01-10 181037.png">
+</p>
 
 cm = confusion_matrix(y_pred, y_test)
 sns.heatmap(cm, annot=True)
@@ -1012,7 +996,9 @@ plt.xlabel('Epoch')
 plt.ylabel('Training Loss')
 plt.legend(['Training Loss'])
 
-
+<p align="center">
+  <img src="Screenshot 2024-01-10 181008.png">
+</p>
 
 plt.plot(epochs_hist.history['accuracy'])
 plt.title('Model Accuracy Progress During Training')
@@ -1020,7 +1006,9 @@ plt.xlabel('Epoch')
 plt.ylabel('Training Accuracy')
 plt.legend(['Training Accuracy'])
 
-
+<p align="center">
+  <img src="Screenshot 2024-01-10 180954.png">
+</p>
 
 cm = confusion_matrix(y_test, y_pred)
 sns.heatmap(cm, annot=True)
@@ -1040,7 +1028,7 @@ print(classification_report(y_test, y_pred))
 weighted avg       0.84      0.85      0.84       368
 
 Author
-Lebede Ngartera
+Dr Lebede Ngartera
 
 Other Contributors
 Kaggle Team.
