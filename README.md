@@ -22,133 +22,78 @@ Data source https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attri
 
 Thanks a million to the Kaggle Team for providing this data.
 
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-
-from google.colab import drive
-drive.mount('/content/drive')
-
-
-Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
-
-employee_df = pd.read_csv('/content/drive/My Drive/Colab Notebooks/Human_Resources.csv')
-
-employee_df
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 182045.png">
+</p>
+<p align="center">
+  <img src="Screenshot 2024-01-10 181957.png">
+</p>
 
 
 employee_df.head(7)
-account_circle
-
+<p align="center">
+  <img src="Screenshot 2024-01-10 181937.png">
+</p>
 
 employee_df.tail(10)
-account_circle
 
+<p align="center">
+  <img src="Screenshot 2024-01-10 181922.png">
+</p>
 
 employee_df.info()
+<p align="center">
+  <img src="Screenshot 2024-01-10 181859.png">
+</p>
 
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1470 entries, 0 to 1469
-Data columns (total 35 columns):
- #   Column                    Non-Null Count  Dtype 
----  ------                    --------------  ----- 
- 0   Age                       1470 non-null   int64 
- 1   Attrition                 1470 non-null   object
- 2   BusinessTravel            1470 non-null   object
- 3   DailyRate                 1470 non-null   int64 
- 4   Department                1470 non-null   object
- 5   DistanceFromHome          1470 non-null   int64 
- 6   Education                 1470 non-null   int64 
- 7   EducationField            1470 non-null   object
- 8   EmployeeCount             1470 non-null   int64 
- 9   EmployeeNumber            1470 non-null   int64 
- 10  EnvironmentSatisfaction   1470 non-null   int64 
- 11  Gender                    1470 non-null   object
- 12  HourlyRate                1470 non-null   int64 
- 13  JobInvolvement            1470 non-null   int64 
- 14  JobLevel                  1470 non-null   int64 
- 15  JobRole                   1470 non-null   object
- 16  JobSatisfaction           1470 non-null   int64 
- 17  MaritalStatus             1470 non-null   object
- 18  MonthlyIncome             1470 non-null   int64 
- 19  MonthlyRate               1470 non-null   int64 
- 20  NumCompaniesWorked        1470 non-null   int64 
- 21  Over18                    1470 non-null   object
- 22  OverTime                  1470 non-null   object
- 23  PercentSalaryHike         1470 non-null   int64 
- 24  PerformanceRating         1470 non-null   int64 
- 25  RelationshipSatisfaction  1470 non-null   int64 
- 26  StandardHours             1470 non-null   int64 
- 27  StockOptionLevel          1470 non-null   int64 
- 28  TotalWorkingYears         1470 non-null   int64 
- 29  TrainingTimesLastYear     1470 non-null   int64 
- 30  WorkLifeBalance           1470 non-null   int64 
- 31  YearsAtCompany            1470 non-null   int64 
- 32  YearsInCurrentRole        1470 non-null   int64 
- 33  YearsSinceLastPromotion   1470 non-null   int64 
- 34  YearsWithCurrManager      1470 non-null   int64 
-dtypes: int64(26), object(9)
-memory usage: 402.1+ KB
-[ ]
-  1
+
+
 employee_df.describe()
-account_circle
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 195542.png">
+</p>
 
 ## III-DATA VISUALIZATIONS
 ### 1) DATA CLEANING
+
 Let's replace the 'Attritition' column with integers before performing any visualizations
 
-[ ]
-  1
-employee_df['Attrition'] = employee_df['Attrition'].apply(lambda x: 1 if x == 'Yes' else 0)
-[ ]
-  1
-employee_df.head(4)
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 195959.png">
+</p>
 
 Right now Let's replace the 'Attritition' column with integers before performing any visualizations
 
-[ ]
-  1
-  2
-employee_df['OverTime'] = employee_df['OverTime'].apply(lambda x: 1 if x == 'Yes' else 0)
-employee_df['Over18'] = employee_df['Over18'].apply(lambda x: 1 if x == 'Y' else 0)
-[ ]
-  1
-employee_df.head(4)
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 195959.png">
+</p>
 
 ### 2) MISSING DATA
 -LIBRARY SEABORN
 
 Let's see if we have any missing data
 
-[ ]
-  1
-sns.heatmap(employee_df.isnull(), yticklabels = False, cbar = False, cmap="Reds") # cbar = color bar, cmap = color map
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 201558.png">
+</p>
 
 Fortunately there is no missing data in this case!
 
 ### -VISUALISATION (HISTOGRAM)
 
-[ ]
-  1
-employee_df.hist(bins=30, figsize = (30,30), color = 'coral')
+<p align="center">
+  <img src="Screenshot 2024-01-10 201858.png">
+</p>
 
 
 Several features such as 'MonthlyIncome' and 'TotalWorkingYears' are tail heavy
 We are going to drop 'EmployeeCount' and 'Standardhours' because they do not change from one employee to the other
 
-[ ]
-  1
-employee_df.drop(['EmployeeCount', 'StandardHours', 'Over18', 'EmployeeNumber'], axis=1, inplace=True)
-Let's see how many employees left the company!
 
+employee_df.drop(['EmployeeCount', 'StandardHours', 'Over18', 'EmployeeNumber'], axis=1, inplace=True)
+
+Let's see how many employees left the company!
 
 left_df        = employee_df[employee_df['Attrition'] == 1]
 stayed_df      = employee_df[employee_df['Attrition'] == 0]
@@ -159,68 +104,84 @@ print("Number of employees who left the company =", len(left_df))
 print("Percentage of employees who left the company =", 1.*len(left_df)/len(employee_df)*100.0, "%")
 
 print("Number of employees who did not leave the company (stayed) =", len(stayed_df))
+
 print("Percentage of employees who did not leave the company (stayed) =", 1.*len(stayed_df)/len(employee_df)*100.0, "%")
-account_circle
+
 Total = 1470
+
 Number of employees who left the company = 237
+
 Percentage of employees who left the company = 16.122448979591837 %
+
 Number of employees who did not leave the company (stayed) = 1233
+
 Percentage of employees who did not leave the company (stayed) = 83.87755102040816 %
-[ ]
-  1
+
 left_df.describe()
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 201944.png">
+</p>
 
-[ ]
-  1
 stayed_df.describe()
-account_circle
-
-[ ]
-  1
-  2
-  3
-  4
+<p align="center">
+  <img src="Screenshot 2024-01-10 202018.png">
+</p>
 correlations = employee_df.corr()
 f, ax = plt.subplots(figsize = (20, 25))
 sns.heatmap(correlations, annot = True)
+<p align="center">
+  <img src="Screenshot 2024-01-10 202211.png">
+</p>
+<p align="center">
+  <img src="Screenshot 2024-01-10 202143.png">
+</p>
 
 
 ###-RELATIONSHIP BETWEEN AGE AND ATTRITION
 
 plt.figure(figsize=[25, 12])
 sns.countplot(x = 'Age', hue = 'Attrition', data = employee_df)
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 202438.png">
+</p>
 
 plt.figure(figsize=[20,20])
-plt.subplot(411)
-sns.countplot(x = 'JobRole', hue = 'Attrition', data = employee_df)
-plt.subplot(412)
-sns.countplot(x = 'MaritalStatus', hue = 'Attrition', data = employee_df)
-plt.subplot(413)
-sns.countplot(x = 'JobInvolvement', hue = 'Attrition', data = employee_df)
-plt.subplot(414)
-sns.countplot(x = 'JobLevel', hue = 'Attrition', data = employee_df)
-account_circle
 
+plt.subplot(411)
+
+sns.countplot(x = 'JobRole', hue = 'Attrition', data = employee_df)
+
+plt.subplot(412)
+
+sns.countplot(x = 'MaritalStatus', hue = 'Attrition', data = employee_df)
+
+plt.subplot(413)
+
+sns.countplot(x = 'JobInvolvement', hue = 'Attrition', data = employee_df)
+
+plt.subplot(414)
+
+sns.countplot(x = 'JobLevel', hue = 'Attrition', data = employee_df)
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 181620.png">
+</p>
+<p align="center">
+  <img src="Screenshot 2024-01-10 181659.png">
+</p>
 KDE (kernel Density Estimate) PLOT [kdeplot]
 
-[ ]
-  1
-  2
-  3
-  4
-  5
-  6
-  7
+
 plt.figure(figsize = (12,7))
 
 sns.kdeplot(left_df['DistanceFromHome'], label = 'Employees who left', shade = True, color = 'r')
 sns.kdeplot(stayed_df['DistanceFromHome'], label = 'Employees who Stayed', shade = True, color = 'g')
 
 plt.xlabel('Distance From Home')
-
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 181506.png">
+</p>
+ 
 
 plt.figure(figsize=(12,7))
 
@@ -228,7 +189,9 @@ sns.kdeplot(left_df['YearsWithCurrManager'], label = 'Employees who left', shade
 sns.kdeplot(stayed_df['YearsWithCurrManager'], label = 'Employees who Stayed', shade = True, color = 'g')
 
 plt.xlabel('Years With Current Manager')
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 181450.png">
+</p>
 
 
 plt.figure(figsize=(12,7))
@@ -238,19 +201,27 @@ sns.kdeplot(stayed_df['TotalWorkingYears'], shade = True, label = 'Employees who
 
 plt.xlabel('Total Working Years')
 
-account_circle
 
+<p align="center">
+  <img src="Screenshot 2024-01-10 181429.png">
+</p>
 
 plt.figure(figsize=(15, 10))
 sns.boxplot(x = 'MonthlyIncome', y = 'Gender', data = employee_df)
-account_circle
+
+<p align="center">
+  <img src="Screenshot 2024-01-10 181409.png">
+</p>
 
 Let's see the monthly income vs. job role
 
 
 plt.figure(figsize=(15, 10))
 sns.boxplot(x = 'MonthlyIncome', y = 'JobRole', data = employee_df)
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-10 181346.png">
+</p>
+
 
 ## IV) CREATE TESTING AND TRAINING DATASET & PERFORM DATA CLEANING
 
