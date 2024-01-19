@@ -1,7 +1,19 @@
-# ARTIFICIAL INTELLIGENCE FOR HUMAN RESOURCES :  **"Model to reduce hiring and training costs of employees"**
+---
+title: "ARTIFICIAL INTELLIGENCE FOR HUMAN RESOURCES :  Model to reduce hiring and training costs of employees"
+author: "Dr LEBEDE  Ngartera"
+Update: "1--05--2024"
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+  pdf_document:
+    toc: yes
+---
 <p align="center">
-  <img src="Screenshot 2024-01-10 182119.png">
+  <img src="Screenshot 2024-01-10 182119.png"></b><br>
 </p>
+
+# ARTIFICIAL INTELLIGENCE FOR HUMAN RESOURCES :  **"Model to reduce hiring and training costs of employees"**
 
 ## I-OVERVIEW
 
